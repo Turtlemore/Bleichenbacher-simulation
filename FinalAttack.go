@@ -82,7 +82,10 @@ func main() {
 	prec = uint(*precPtr)
 	useBlinding = *blindPtr
 	oracleType = *oraclePtr
-
+	if oracleType < 1 || oracleType > 3 {
+		fmt.Println("Error invalid oracle type, value must be between 1 and 3, got: ", oracleType)
+		return
+	}
 	useBlinding = *blindPtr
 	fmt.Println("")
 	fmt.Println("Key size")
@@ -512,7 +515,7 @@ func Oracle(pk big.Int, c0ForSimulation big.Int) bool {
 
 	if len(oracleFormatToCheck) == keyLengthInt { //Checks if the format size is correct (same length of the key)
 		if strings.HasPrefix(oracleFormatToCheck, "0002") { //Check if the format starts with 0002
-			if oracleType == 1 {
+			if oracleType == 2 {
 				return true
 			}
 			trimmedString := trimLeftChar(oracleFormatToCheck, 3)
@@ -521,6 +524,9 @@ func Oracle(pk big.Int, c0ForSimulation big.Int) bool {
 			str2 := strings.Join(first, " ")
 
 			if strings.Contains(trimmedString, "00") { //Checks if the format contains a seporator byte "00"
+				if oracleType == 3 {
+					return true
+				}
 				if len(str2) < 16 { //If the padding has 00 byte it checks whether it is within the first 16 bits / 8 bytes
 					return false //<-- 16 is the default and ensures that there is no 0's in the first 8 bytes of padding.
 				} else {
