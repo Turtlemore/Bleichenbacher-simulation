@@ -21,14 +21,16 @@ Configurations:
 You can run the code with a few configuration to alter the behavior of the simulation.
  
 * If you simply run the FinalAttack executable, the attack will done with
-	-blind=false, which means no blinding phase, meaning you will be prompted to type a message to be encrypted and then used as the c0 value
+	-blind=false, 
+		which means no blinding phase, meaning you will be prompted to type a message to be encrypted and then used as the c0 value
 	-k=1024
 	-e=3
-	-prec = 1024, note the precision values simply affect the big.Float numbers and not the actual attack. Note: This value should always be the same as the key-length. 
+	-prec = 1024, note the precision values simply affect the big.Float numbers and not the actual attack. 
+		Note: This value should always be the same as the key-length. 
 	-oracle = 1, type 1 oracle, which checks if the plaintext conforms to all properties of PKCS 1.5 
 
 *You can pass the following flags: blind, k, e, prec, to the executable to change the above values. e.g. ./FinalAttack -blind=true -k=2048 -e=9 -prec=1024
-* If you have the source code FinalAttack.go you can also 
+* If you have the source code FinalAttack.go you can also build and run the program with flags using go run e.g. go run FinalAttack.go -blind=true -k=2048
 	
 ---------------------------------------------------------------------------------------------------------
 
